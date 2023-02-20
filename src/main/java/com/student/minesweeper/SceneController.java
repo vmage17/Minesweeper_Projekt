@@ -75,6 +75,10 @@ public class SceneController implements Initializable{
         if (file != null) {
             Defaultview.setImage(new Image(file.toURI().toString()));
         }*/
+
+        grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
+        grid.setNumbers();
+
         Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/" + difficulty + ".fxml"))));
         stage = (Stage)smileImageView.getScene().getWindow();
         scene = new Scene(root);
@@ -113,6 +117,7 @@ public class SceneController implements Initializable{
         setDifficulty("beginner");
 
         grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
+        grid.setNumbers();
 
         setScene(event);
     }
@@ -123,6 +128,7 @@ public class SceneController implements Initializable{
         setDifficulty("intermediate");
 
         grid = new Grid(INTERMEDIATE_HEIGHT, INTERMEDIATE_WIDTH, INTERMEDIATE_BOMBS);
+        grid.setNumbers();
 
         setScene(event);
     }
@@ -133,6 +139,7 @@ public class SceneController implements Initializable{
         setDifficulty("expert");
 
         grid = new Grid(EXPERT_HEIGHT, EXPERT_WIDTH, EXPERT_BOMBS);
+        grid.setNumbers();
 
         setScene(event);
     }
@@ -152,8 +159,7 @@ public class SceneController implements Initializable{
             Integer colIndex = GridPane.getColumnIndex(clickedNode);
             Integer rowIndex = GridPane.getRowIndex(clickedNode);
 
-            System.out.println("Mouse clicked cell: (" + colIndex + ", " + rowIndex + ")");
-            System.out.println(grid == null);
+            //System.out.println("Mouse clicked cell: (" + colIndex + ", " + rowIndex + ")");
 
             if (event.getButton() == MouseButton.PRIMARY)
                 grid.open(gridPane, colIndex, rowIndex);

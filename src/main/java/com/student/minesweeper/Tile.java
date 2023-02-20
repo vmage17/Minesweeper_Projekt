@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 public class Tile extends StackPane {
 
     public static final int TILE_SIZE = 32;
@@ -22,37 +24,19 @@ public class Tile extends StackPane {
 
     private final Grid grid;
 
-    private final Text number = new Text();
-    //private ImageView imageView;
+    private int number;
 
     public Tile(int x, int y, boolean hasBomb, Grid grid) {
         this.x = x;
         this.y = y;
         this.hasBomb = hasBomb;
         this.grid = grid;
-        //imageView = new ImageView();
-        //imageView.setImage(grid.covered);
+        number = 0;
 
-        int numberOfNeighbours = grid.getNeighbours(this).size();
-        number.setText(Integer.toString(numberOfNeighbours));
-        switch (numberOfNeighbours) {
-            case 0 -> number.setText("");
-            case 1 -> number.setFill(Color.BLUE);
-            case 2 -> number.setFill(Color.GREEN);
-            case 3 -> number.setFill(Color.RED);
-            case 4 -> number.setFill(Color.DARKBLUE);
-            case 5 -> number.setFill(Color.DARKRED);
-            case 6 -> number.setFill(Color.TEAL);
-            case 7 -> number.setFill(Color.BLACK);
-            case 8 -> number.setFill(Color.GRAY);
-        }
-        number.setFont(Font.font(18));
-        number.setVisible(false);
+        //getChildren().add(number); //root?
 
-        getChildren().add(number); //root?
-
-        setTranslateX(x * TILE_SIZE);
-        setTranslateY(y * TILE_SIZE);
+        //setTranslateX(x * TILE_SIZE);
+        //setTranslateY(y * TILE_SIZE);
 
         ///setOnMouseClicked(e -> open());
     }
@@ -78,13 +62,15 @@ public class Tile extends StackPane {
     }
 
     public void open(GridPane gridPane) {
+        ImageView imageView = getChildByRowColumn(gridPane);
+        System.out.println(imageView.getImage().getUrl());
 
         if (isOpen) {
-            System.out.println("Already opened!");
+            //System.out.println("Already opened!");
             return;
         }
 
-        ImageView imageView = getChildByRowColumn(gridPane);
+
 
         if (hasBomb) {
             System.out.println("There is a bomb! Game Over");
@@ -92,16 +78,26 @@ public class Tile extends StackPane {
             return;
         }
 
-        System.out.println("Opening this tile...");
+        //System.out.println("Opening this tile...");
         info();
 
         isOpen = true;
-        imageView.setImage(Grid.opened);
-        number.setVisible(true);
-
-        //if (number.getText().isEmpty()) {
-        //    grid.getNeighbours(this).forEach(Tile::open);
-        //}
+        switch (number) {
+            case 0 -> imageView.setImage(Grid.opened0);
+            case 1 -> imageView.setImage(Grid.opened1);
+            case 2 -> imageView.setImage(Grid.opened2);
+            case 3 -> imageView.setImage(Grid.opened3);
+            case 4 -> imageView.setImage(Grid.opened4);
+            case 5 -> imageView.setImage(Grid.opened5);
+            case 6 -> imageView.setImage(Grid.opened6);
+            case 7 -> imageView.setImage(Grid.opened7);
+            case 8 -> imageView.setImage(Grid.opened8);
+        }
+        if (number == 0) {
+            List<Tile> neighbours = grid.getNeighbours(this);
+            for (Tile tile : neighbours)
+                tile.open(gridPane);
+        }
     }
 
     public int getX() {
@@ -111,10 +107,6 @@ public class Tile extends StackPane {
     public int getY() {
         return y;
     }
-
-    //public ImageView getImage() {
-        //return imageView;
-    //}
 
     ImageView getChildByRowColumn(GridPane gridPane) {
         for (Node node : gridPane.getChildren()) {
@@ -133,5 +125,13 @@ public class Tile extends StackPane {
     public void info() {
         System.out.print("Tile(" + x + ", " + y + ") open: " + isOpen);
         System.out.println(" bomb: " + hasBomb + " flag: " + flagged);
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public boolean hasBomb() {
+        return hasBomb;
     }
 }
