@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="pane" prefHeight="512.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.minesweeper.SceneController">
+   <children>
+      <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="569.0" AnchorPane.leftAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Game">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#setCurrentDifficulty" text="New" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <RadioMenuItem mnemonicParsing="false" onAction="#setBeginnerDifficulty" text="Beginner">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="diificulty" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem mnemonicParsing="false" onAction="#setIntermediateDifficulty" text="Intermediate" toggleGroup="$diificulty" />
+                  <RadioMenuItem mnemonicParsing="false" onAction="#setExpertDifficulty" text="Expert" toggleGroup="$diificulty" />
+                  <RadioMenuItem mnemonicParsing="false" text="Custom" toggleGroup="$diificulty" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="High Scores">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Beginner Scores" />
+                  <MenuItem mnemonicParsing="false" text="Intermediate Scores" />
+                  <MenuItem mnemonicParsing="false" text="Expert Scores" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ImageView fx:id="smileImageView" fitHeight="32.0" fitWidth="32.0" layoutX="269.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="bombsLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="25.0" prefHeight="32.0" prefWidth="45.0" text="000">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeElapsed" alignment="CENTER" contentDisplay="CENTER" layoutX="524.0" layoutY="25.0" prefHeight="32.0" prefWidth="45.0" text="000">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
