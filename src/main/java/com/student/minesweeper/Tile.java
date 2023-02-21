@@ -1,15 +1,10 @@
 package com.student.minesweeper;
 
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.util.List;
 
@@ -41,7 +36,7 @@ public class Tile extends StackPane {
         ///setOnMouseClicked(e -> open());
     }
 
-    public void flag(GridPane gridPane) {
+    public void flag(GridPane gridPane, Label bombsLeft, boolean won) {
 
         if (isOpen) {
             System.out.println("Already opened!");
@@ -49,33 +44,60 @@ public class Tile extends StackPane {
         }
 
         ImageView imageView = getChildByRowColumn(gridPane);
+        int bombsLeftAsInt = Integer.parseInt(bombsLeft.getText());
 
-        if (flagged) {
+        if (flagged && !won) {
             System.out.println("Unflagging");
             imageView.setImage(Grid.covered);
+            bombsLeftAsInt++;
+            flagged = false;
         }
         else {
             System.out.println("Flagging");
             imageView.setImage(Grid.flagged);
+            if (!won)
+                bombsLeftAsInt--;
+            flagged = true;
         }
-        flagged = !flagged;
+
+        if (bombsLeftAsInt <= -100) {
+            bombsLeftAsInt = -((-bombsLeftAsInt)%10);
+        }
+        if (bombsLeftAsInt <= -10) {
+            bombsLeft.setText("-" + -bombsLeftAsInt);
+        }
+        if (bombsLeftAsInt < 0 && bombsLeftAsInt > -10) {
+            bombsLeft.setText("-0" + -bombsLeftAsInt);
+        }
+        if (bombsLeftAsInt >= 0 && bombsLeftAsInt < 10) {
+            bombsLeft.setText("00" + bombsLeftAsInt);
+        }
+        if (bombsLeftAsInt >= 10 && bombsLeftAsInt < 100) {
+            bombsLeft.setText("0" + bombsLeftAsInt);
+        }
+        if (bombsLeftAsInt >= 100) {
+            bombsLeft.setText("" + bombsLeftAsInt);
+        }
+        if (won) {
+            bombsLeft.setText("000");
+        }
     }
 
-    public void open(GridPane gridPane) {
+    public int open(GridPane gridPane) {
         ImageView imageView = getChildByRowColumn(gridPane);
-        System.out.println(imageView.getImage().getUrl());
+        //System.out.println(imageView.getImage().getUrl());
 
-        if (isOpen) {
+
+        if (isOpen || flagged) {
             //System.out.println("Already opened!");
-            return;
+            return 0;
         }
-
-
 
         if (hasBomb) {
             System.out.println("There is a bomb! Game Over");
-            imageView.setImage(Grid.not_bomb);
-            return;
+            imageView.setImage(Grid.clicked_bomb);
+            grid.gameLost(this);
+            return -1;
         }
 
         //System.out.println("Opening this tile...");
@@ -93,19 +115,31 @@ public class Tile extends StackPane {
             case 7 -> imageView.setImage(Grid.opened7);
             case 8 -> imageView.setImage(Grid.opened8);
         }
+
+        if (grid.checkIfWon()) {
+            System.out.println("You won!");
+            return 1;
+        }
+
         if (number == 0) {
             List<Tile> neighbours = grid.getNeighbours(this);
-            for (Tile tile : neighbours)
-                tile.open(gridPane);
+            for (Tile tile : neighbours) {
+                if (tile.open(gridPane) == 1)
+                    return 1;
+            }
         }
+
+        return 0;
     }
 
-    public int getX() {
-        return x;
+    public void incorrectlyFlagged(GridPane gridPane) {
+        ImageView imageView = getChildByRowColumn(gridPane);
+        imageView.setImage(Grid.not_bomb);
     }
 
-    public int getY() {
-        return y;
+    public void bombNotFlagged(GridPane gridPane) {
+        ImageView imageView = getChildByRowColumn(gridPane);
+        imageView.setImage(Grid.bomb);
     }
 
     ImageView getChildByRowColumn(GridPane gridPane) {
@@ -115,7 +149,7 @@ public class Tile extends StackPane {
                     && GridPane.getColumnIndex(iv) != null
                     && GridPane.getRowIndex(iv) == y
                     && GridPane.getColumnIndex(iv) == x) {
-                System.out.println("node (" + x + ", " + y + ") exist");
+                //System.out.println("node (" + x + ", " + y + ") exist");
                 return iv;
             }
         }
@@ -134,4 +168,21 @@ public class Tile extends StackPane {
     public boolean hasBomb() {
         return hasBomb;
     }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
 }

@@ -16,18 +16,14 @@ public class MinesweeperApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Stage myStage = SceneController.stage;
-        myStage.setTitle("Minesweeper");
+        SceneController.stage.setTitle("Minesweeper");
         Image icon  = new Image("file:src/main/resources/assets/bomb.jpg");
-        myStage.getIcons().add(icon);
+        SceneController.stage.getIcons().add(icon);
 
-        //sceneController = new SceneController();
-        //sceneController.setCurrentDifficulty();
-
-        Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/beginner.fxml"))));
-        myStage.setScene(new Scene(root));
-        myStage.setResizable(false);
-        myStage.show();
+        SceneController.root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/beginner.fxml"))));
+        SceneController.stage.setScene(new Scene(SceneController.root));
+        SceneController.stage.setResizable(false);
+        SceneController.stage.show();
     }
 
     public static void main(String[] args) {

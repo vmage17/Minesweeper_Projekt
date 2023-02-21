@@ -1,5 +1,6 @@
 package com.student.minesweeper;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
@@ -12,6 +13,7 @@ public class Grid {
     private final Tile[][] grid;
     private final int width;
     private final int height;
+    private final int numberOfBombs;
 
     public static Image covered = new Image("file:src/main/resources/assets/covered.jpg");
     public static Image flagged = new Image("file:src/main/resources/assets/flagged.jpg");
@@ -30,6 +32,12 @@ public class Grid {
     public static Image opened7 = new Image("file:src/main/resources/assets/opened7.jpg");
     public static Image opened8 = new Image("file:src/main/resources/assets/opened8.jpg");
 
+    boolean gameLost = false;
+    boolean gameWon = false;
+
+    private GridPane gridPane = null;
+    private Label bombsLeft = null;
+
     public Grid(int height, int width, int numberOfBombs) {
 
         System.out.println("Grid created");
@@ -37,6 +45,7 @@ public class Grid {
         this.height = height;
         this.width = width;
         grid = new Tile[height][width];
+        this.numberOfBombs = numberOfBombs;
 
         // Placing bombs
 
@@ -95,34 +104,80 @@ public class Grid {
         return neighbours;
     }
 
-    public void placeImages(GridPane gridPane) {
-        for (int y = 0; y < width; y++) {
-            for (int x = 0; x < height; x++) {
-                Tile tile = grid[x][y];
-                //GridPane.setRowIndex(tile.getImage(), x);
-                //GridPane.setColumnIndex(tile.getImage(), y);
-                //gridPane.getChildren().add(tile.getImage());
-            }
-        }
+    public int open(GridPane gridPane, Integer colIndex, Integer rowIndex, Label bombsLeft) {
+        if (this.gridPane == null)
+            this.gridPane = gridPane;
+        if (this.bombsLeft == null)
+            this.bombsLeft = bombsLeft;
+        return grid[colIndex][rowIndex].open(gridPane);
     }
 
-    public void open(GridPane gridPane, Integer colIndex, Integer rowIndex) {
-        grid[colIndex][rowIndex].open(gridPane);
-    }
-
-    public void flag(GridPane gridPane, Integer colIndex, Integer rowIndex) {
-        grid[colIndex][rowIndex].flag(gridPane);
+    public void flag(GridPane gridPane, Integer colIndex, Integer rowIndex, Label bombsLeft) {
+        if (this.gridPane == null)
+            this.gridPane = gridPane;
+        if (this.bombsLeft == null)
+            this.bombsLeft = bombsLeft;
+        grid[colIndex][rowIndex].flag(gridPane, bombsLeft, false);
     }
 
     public void setNumbers() {
         for (int y = 0; y < width; y++) {
             for (int x = 0; x < height; x++) {
                 Tile tile = grid[x][y];
-                List<Tile> neighbours = getNeighbours(tile);
                 tile.setNumber((int)getNeighbours(tile).stream().filter(Tile::hasBomb).count());
             }
         }
+    }
 
+    public void gameLost(Tile clicked) {
+        this.gameLost = true;
+        for (int y = 0; y < width; y++) {
+            for (int x = 0; x < height; x++) {
+                Tile tile = grid[x][y];
+                if (tile.isFlagged() && !tile.hasBomb())
+                    tile.incorrectlyFlagged(gridPane);
+                if (!tile.isFlagged() && tile.hasBomb() && tile != clicked)
+                    tile.bombNotFlagged(gridPane);
+            }
+        }
+    }
 
+    public void gameWon() {
+        this.gameWon = true;
+        flagAll();
+
+        // adding new record to the database
+    }
+
+    public boolean checkIfWon() {
+        int uncovered = 0;
+        for (int y = 0; y < width; y++) {
+            for (int x = 0; x < height; x++) {
+                Tile tile = grid[x][y];
+                if (!tile.hasBomb() && tile.isOpen())
+                    uncovered++;
+            }
+        }
+        if (uncovered == width*height - numberOfBombs) {
+            gameWon();
+            return true;
+        }
+        return false;
+    }
+
+    public void flagAll() {
+        for (int y = 0; y < width; y++) {
+            for (int x = 0; x < height; x++) {
+                grid[x][y].flag(gridPane, bombsLeft, true);
+            }
+        }
+    }
+
+    public boolean isGameLost() {
+        return gameLost;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
     }
 }
