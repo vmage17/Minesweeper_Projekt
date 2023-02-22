@@ -9,14 +9,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class MinesweeperApp extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
 
         DataBaseController dataBaseController = new DataBaseController();
+
+        dataBaseController.resetScores("beginner");
+        dataBaseController.resetScores("intermediate");
+        dataBaseController.resetScores("expert");
+
         SceneController.dataBaseController = dataBaseController;
         ScoreController.dataBaseController = dataBaseController;
 

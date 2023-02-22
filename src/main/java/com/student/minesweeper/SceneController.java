@@ -24,6 +24,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -167,7 +168,7 @@ public class SceneController implements Initializable{
     }
 
     @FXML
-    private void mouseEntered(MouseEvent event) throws IOException {
+    private void mouseEntered(MouseEvent event) throws IOException, SQLException {
 
         if(grid.isGameLost() || grid.isGameWon())
             return;
@@ -200,11 +201,11 @@ public class SceneController implements Initializable{
         }
     }
 
-    private void winSequence() throws IOException {
+    private void winSequence() throws IOException, SQLException {
         // set score depending on time
         int score = stopTimer();
         // check if it's a new high score
-        if (dataBaseController.checkIfNewHighScore(difficulty, score))
+        if (dataBaseController.checkIfNewHighScore(difficulty, ((float) score)/1000))
             // create new window for player to input name and then add that name to the database
             showSaveScoreWindow();
     }
