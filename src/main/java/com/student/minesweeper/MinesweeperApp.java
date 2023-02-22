@@ -16,6 +16,10 @@ public class MinesweeperApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        DataBaseController dataBaseController = new DataBaseController();
+        SceneController.dataBaseController = dataBaseController;
+        ScoreController.dataBaseController = dataBaseController;
+
         SceneController.stage.setTitle("Minesweeper");
         Image icon  = new Image("file:src/main/resources/assets/bomb.jpg");
         SceneController.stage.getIcons().add(icon);

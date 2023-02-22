@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="313.0" maxWidth="256.0" minHeight="313.0" minWidth="256.0" prefHeight="313.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.minesweeper.SceneController">
+<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="319.0" maxWidth="256.0" minHeight="313.0" minWidth="256.0" prefHeight="319.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.minesweeper.SceneController">
    <children>
       <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="256.0" AnchorPane.leftAnchor="0.0">
         <menus>
@@ -43,21 +43,21 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ImageView fx:id="smileImageView" fitHeight="32.0" fitWidth="32.0" layoutX="112.0" layoutY="25.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="smileImageView" fitHeight="38.0" fitWidth="38.0" layoutX="109.0" layoutY="25.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/face_smile.png" />
          </image></ImageView>
-      <Label fx:id="bombsLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="25.0" prefHeight="32.0" prefWidth="45.0" text="000">
+      <Label fx:id="bombsLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="25.0" prefHeight="38.0" prefWidth="60.0" text="000">
          <font>
-            <Font size="18.0" />
+            <Font name="Consolas" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="timeElapsed" alignment="CENTER" contentDisplay="CENTER" layoutX="211.0" layoutY="25.0" prefHeight="32.0" prefWidth="45.0" text="000">
+      <Label fx:id="timeElapsed" alignment="CENTER" contentDisplay="CENTER" layoutX="196.0" layoutY="25.0" prefHeight="38.0" prefWidth="60.0" text="000">
          <font>
-            <Font size="18.0" />
+            <Font name="Consolas" size="26.0" />
          </font>
       </Label>
-      <GridPane fx:id="gridPane" layoutY="57.0" maxHeight="256.0" maxWidth="256.0" minHeight="256.0" minWidth="256.0" onMouseClicked="#mouseEntered" onMousePressed="#setConcerned" onMouseReleased="#setNormal" prefHeight="256.0" prefWidth="256.0">
+      <GridPane fx:id="gridPane" layoutY="63.0" maxHeight="256.0" maxWidth="256.0" minHeight="256.0" minWidth="256.0" onMouseClicked="#mouseEntered" onMousePressed="#setConcerned" onMouseReleased="#setNormal" prefHeight="256.0" prefWidth="256.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="32.0" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="32.0" minWidth="10.0" prefWidth="32.0" />

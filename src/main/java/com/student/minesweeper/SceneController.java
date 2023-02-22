@@ -1,5 +1,11 @@
 package com.student.minesweeper;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +20,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,10 +41,13 @@ public class SceneController implements Initializable{
 
     public static Stage stage = new Stage();
     public static Parent root;
-    private Scene scene;
+    public static DataBaseController dataBaseController;
     private static Grid grid;
 
     private static String difficulty = "beginner";
+    private long startTime = 0;
+
+    private Timeline timeline;
 
     public static Image concerned = new Image("file:src/main/resources/assets/face_concerned.png");
     public static Image cool = new Image("file:src/main/resources/assets/face_cool.png");
@@ -58,34 +68,33 @@ public class SceneController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.print("initialized with " + difficulty.toUpperCase());
+        System.out.println("Initialized with " + difficulty.toUpperCase());
         //if (grid == null) System.out.println("grid is null again!! wtf");
         //scene = new Scene(root);
         //stage.setScene(scene);
         //stage.show();
 
-        grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
-        grid.setNumbers();
+        switch (difficulty) {
+            case "beginner" -> {
+                grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
+                bombsLeft.setText("0" + BEGINNER_BOMBS);
+            }
+            case "intermediate" -> {
+                grid = new Grid(INTERMEDIATE_HEIGHT, INTERMEDIATE_WIDTH, INTERMEDIATE_BOMBS);
+                bombsLeft.setText("0" + INTERMEDIATE_BOMBS);
+            }
+            case "expert" -> {
+                grid = new Grid(EXPERT_HEIGHT, EXPERT_WIDTH, EXPERT_BOMBS);
+                bombsLeft.setText("0" + EXPERT_BOMBS);
+            }
+        }
 
-        bombsLeft.setText("0" + BEGINNER_BOMBS);
+        grid.setNumbers();
     }
 
     @FXML
     public void onClick() throws IOException {
-        System.out.println("smile clicked");
-        /*
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        // use existing window here, don't create a new one:
-        File file = fileChooser.showOpenDialog(Defaultview.getScene().getWindow());
-        if (file != null) {
-            Defaultview.setImage(new Image(file.toURI().toString()));
-        }*/
-
-        grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
-        grid.setNumbers();
-
-        bombsLeft.setText("0" + BEGINNER_BOMBS);
+        System.out.println("Smile clicked");
 
         //stage = (Stage)smileImageView.getScene().getWindow();
         setScene();
@@ -97,8 +106,7 @@ public class SceneController implements Initializable{
         root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/" + difficulty + ".fxml"))));
         //MenuItem menuItem = (MenuItem)event.getTarget();
         //stage = (Stage)menuItem.getParentPopup().getOwnerWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
@@ -121,11 +129,6 @@ public class SceneController implements Initializable{
         System.out.println("Beginner selected");
         setDifficulty("beginner");
 
-        grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
-        grid.setNumbers();
-
-        bombsLeft.setText("0" + BEGINNER_BOMBS);
-
         setScene();
     }
 
@@ -133,11 +136,6 @@ public class SceneController implements Initializable{
     public void setIntermediateDifficulty() throws IOException {
         System.out.println("Intermediate selected");
         setDifficulty("intermediate");
-
-        grid = new Grid(INTERMEDIATE_HEIGHT, INTERMEDIATE_WIDTH, INTERMEDIATE_BOMBS);
-        grid.setNumbers();
-
-        bombsLeft.setText("0" + INTERMEDIATE_BOMBS);
 
         setScene();
     }
@@ -147,11 +145,6 @@ public class SceneController implements Initializable{
         System.out.println("Expert selected");
         setDifficulty("expert");
 
-        grid = new Grid(EXPERT_HEIGHT, EXPERT_WIDTH, EXPERT_BOMBS);
-        grid.setNumbers();
-
-        bombsLeft.setText("0" + EXPERT_BOMBS);
-
         setScene();
     }
 
@@ -159,36 +152,6 @@ public class SceneController implements Initializable{
     public void exit(){
         System.out.println("Closing game");
         stage.close();
-    }
-
-    @FXML
-    private void mouseEntered(MouseEvent event) {
-
-        if(grid.isGameLost() || grid.isGameWon())
-            return;
-
-        Node clickedNode = event.getPickResult().getIntersectedNode();
-
-        if (clickedNode != gridPane) {
-            Integer colIndex = GridPane.getColumnIndex(clickedNode);
-            Integer rowIndex = GridPane.getRowIndex(clickedNode);
-
-            //System.out.println("Mouse clicked cell: (" + colIndex + ", " + rowIndex + ")");
-
-            if (event.getButton() == MouseButton.PRIMARY) {
-                int indicator = grid.open(gridPane, colIndex, rowIndex, bombsLeft);
-                if (indicator == -1) {
-                    smileImageView.setImage(dead);
-                }
-                if (indicator == 1) {
-                    smileImageView.setImage(cool);
-                    // create new window for player to input name and then add that name to the database
-                }
-            }
-            else if (event.getButton() == MouseButton.SECONDARY) {
-                grid.flag(gridPane, colIndex, rowIndex, bombsLeft);
-            }
-        }
     }
 
     @FXML
@@ -201,5 +164,89 @@ public class SceneController implements Initializable{
     private void setNormal(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY && !grid.isGameWon() && !grid.isGameLost())
             smileImageView.setImage(smile);
+    }
+
+    @FXML
+    private void mouseEntered(MouseEvent event) throws IOException {
+
+        if(grid.isGameLost() || grid.isGameWon())
+            return;
+
+        Node clickedNode = event.getPickResult().getIntersectedNode();
+
+        if (clickedNode != gridPane) {
+            Integer colIndex = GridPane.getColumnIndex(clickedNode);
+            Integer rowIndex = GridPane.getRowIndex(clickedNode);
+
+            //System.out.println("Mouse clicked cell: (" + colIndex + ", " + rowIndex + ")");
+            //System.out.println("Time elapsed: " + getTime());
+
+            if (event.getButton() == MouseButton.PRIMARY) {
+                if (startTime == 0)
+                    setTimer();
+                int indicator = grid.open(gridPane, colIndex, rowIndex, bombsLeft);
+                if (indicator == -1) {
+                    smileImageView.setImage(dead);
+                    stopTimer();
+                }
+                if (indicator == 1) {
+                    smileImageView.setImage(cool);
+                    winSequence();
+                }
+            }
+            else if (event.getButton() == MouseButton.SECONDARY) {
+                grid.flag(gridPane, colIndex, rowIndex, bombsLeft);
+            }
+        }
+    }
+
+    private void winSequence() throws IOException {
+        // set score depending on time
+        int score = stopTimer();
+        // check if it's a new high score
+        if (dataBaseController.checkIfNewHighScore(difficulty, score))
+            // create new window for player to input name and then add that name to the database
+            showSaveScoreWindow();
+    }
+
+    private void showSaveScoreWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/save_score_" + difficulty + ".fxml"));
+        Parent rootSaveScore = fxmlLoader.load();
+        Stage stageSaveScore = new Stage();
+        ScoreController.stage = stageSaveScore;
+        stageSaveScore.setScene(new Scene(rootSaveScore));
+        stageSaveScore.show();
+    }
+
+    public void setTimer() {
+        startTime = System.currentTimeMillis();
+
+        IntegerProperty counter = new SimpleIntegerProperty(0);
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1000), new KeyValue(counter, 1000)));
+        timeElapsed.textProperty().bind(Bindings.createStringBinding(() -> getTimeString(counter.get()), counter));
+        timeline.play();
+    }
+
+    public String getTimeString(Integer time) {
+        if (time < 10)
+            return "00" + time;
+        if (time < 100)
+            return "0" + time;
+        if (time < 1000)
+            return Integer.toString(time);
+        return "999";
+    }
+
+    public int getTime() {
+        long endTime = System.currentTimeMillis();
+        return (int)(endTime-startTime);
+    }
+
+    public int stopTimer() {
+        timeline.stop();
+        long endTime = System.currentTimeMillis();
+        int timeElapsed = (int)(endTime-startTime);
+        startTime = 0;
+        return timeElapsed;
     }
 }

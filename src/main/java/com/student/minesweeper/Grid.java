@@ -38,9 +38,9 @@ public class Grid {
     private GridPane gridPane = null;
     private Label bombsLeft = null;
 
-    public Grid(int height, int width, int numberOfBombs) {
+    public Grid(int width, int height, int numberOfBombs) {
 
-        System.out.println("Grid created");
+        System.out.println("Grid created: " + height + "x" + width);
 
         this.height = height;
         this.width = width;
