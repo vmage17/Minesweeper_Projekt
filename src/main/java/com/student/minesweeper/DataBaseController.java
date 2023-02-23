@@ -1,6 +1,9 @@
 package com.student.minesweeper;
 
+import javafx.scene.control.Label;
+
 import java.sql.*;
+import java.util.List;
 
 public class DataBaseController {
 
@@ -137,9 +140,30 @@ public class DataBaseController {
         }
     }
 
+    public void showScores(String difficulty, List<Label> list) throws SQLException {
+        System.out.println("Searching for high scores and displaying top 10 in " + difficulty);
+
+        String query = "SELECT Name, Score FROM "
+                + difficulty.substring(0, 1).toUpperCase()
+                + difficulty.substring(1)
+                + " ORDER BY Score;";
+
+        ResultSet result = stat.executeQuery(query);
+
+        int index = 0;
+        while (result.next()) {
+            String name = result.getString("Name");
+            float score = result.getFloat("Score");
+            list.get(index++).setText(score + " seconds");
+            list.get(index++).setText(name);
+            if (index >= 20)
+                break;
+        }
+    }
+
     public void resetScores(String difficulty) throws SQLException {
 
-        // Deleting all scores for chosen difficulty...
+        System.out.println("Deleting all scores for " + difficulty + " difficulty...");
         String query = "DELETE FROM "
                 + difficulty.substring(0, 1).toUpperCase()
                 + difficulty.substring(1);

@@ -46,8 +46,9 @@ public class SceneController implements Initializable{
     private static Grid grid;
 
     private static String difficulty = "beginner";
-    private long startTime = 0;
+    private static String highScores = "beginner";
 
+    private long startTime = 0;
     private Timeline timeline;
 
     public static Image concerned = new Image("file:src/main/resources/assets/face_concerned.png");
@@ -69,8 +70,8 @@ public class SceneController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Initialized with " + difficulty.toUpperCase());
-        //if (grid == null) System.out.println("grid is null again!! wtf");
+        System.out.println("Initialized with " + difficulty);
+        //if (grid == null) System.out.println("grid is null");
         //scene = new Scene(root);
         //stage.setScene(scene);
         //stage.show();
@@ -96,19 +97,8 @@ public class SceneController implements Initializable{
     @FXML
     public void onClick() throws IOException {
         System.out.println("Smile clicked");
-
         //stage = (Stage)smileImageView.getScene().getWindow();
         setScene();
-
-    }
-
-    public void setScene() throws IOException {
-        System.out.println("Scene set");
-        root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/" + difficulty + ".fxml"))));
-        //MenuItem menuItem = (MenuItem)event.getTarget();
-        //stage = (Stage)menuItem.getParentPopup().getOwnerWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 
     private void setDifficulty(String difficulty) {
@@ -149,9 +139,45 @@ public class SceneController implements Initializable{
         setScene();
     }
 
+    public void setScene() throws IOException {
+        System.out.println("Scene set");
+        root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/fxml_files/" + difficulty + ".fxml"))));
+        //MenuItem menuItem = (MenuItem)event.getTarget();
+        //stage = (Stage)menuItem.getParentPopup().getOwnerWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    public void showBeginnerHighScores() throws IOException {
+        setHighScoresScene("beginner");
+    }
+
+    @FXML
+    public void showIntermediateHighScores() throws IOException {
+        setHighScoresScene("intermediate");
+    }
+
+    @FXML
+    public void showExpertHighScores() throws IOException {
+        setHighScoresScene("expert");
+    }
+
+    public void setHighScoresScene(String difficulty) throws IOException {
+        HighScoresController.setDifficulty(difficulty);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_files/high_scores.fxml"));
+        Parent rootHighScores = fxmlLoader.load();
+        Stage stageHighScores = new Stage();
+        HighScoresController.stage = stageHighScores;
+        stageHighScores.setScene(new Scene(rootHighScores));
+        stageHighScores.setResizable(false);
+        stageHighScores.show();
+    }
+
     @FXML
     public void exit(){
         System.out.println("Closing game");
+        dataBaseController.closeConnection();
         stage.close();
     }
 
@@ -211,11 +237,12 @@ public class SceneController implements Initializable{
     }
 
     private void showSaveScoreWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/save_score_" + difficulty + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_files/save_score_" + difficulty + ".fxml"));
         Parent rootSaveScore = fxmlLoader.load();
         Stage stageSaveScore = new Stage();
         ScoreController.stage = stageSaveScore;
         stageSaveScore.setScene(new Scene(rootSaveScore));
+        stageSaveScore.setResizable(false);
         stageSaveScore.show();
     }
 

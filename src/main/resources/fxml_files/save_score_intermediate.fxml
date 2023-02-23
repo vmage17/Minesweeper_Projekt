@@ -12,11 +12,11 @@
    <children>
       <ImageView fitHeight="200.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/save_score.png" />
+            <Image url="@../assets/save_score.png" />
          </image>
       </ImageView>
       <TextField fx:id="name" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="200.0" text="Anonymous" />
-      <Label alignment="CENTER" layoutX="49.0" layoutY="38.0" prefHeight="25.0" prefWidth="300.0" text="You have the fastest time for expert level.">
+      <Label alignment="CENTER" layoutX="49.0" layoutY="38.0" prefHeight="25.0" prefWidth="300.0" text="You have the fastest time for intermediate level.">
          <font>
             <Font size="14.0" />
          </font>
