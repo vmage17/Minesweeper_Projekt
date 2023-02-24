@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="575.0" maxWidth="512.0" minHeight="313.0" minWidth="256.0" prefHeight="575.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.minesweeper.SceneController">
+<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="575.0" maxWidth="512.0" minHeight="313.0" minWidth="256.0" prefHeight="575.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="student.minesweeper.SceneController">
    <children>
       <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="512.0" AnchorPane.leftAnchor="0.0">
         <menus>

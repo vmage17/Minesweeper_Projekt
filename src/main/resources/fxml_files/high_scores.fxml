@@ -7,174 +7,173 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.student.minesweeper.HighScoresController">
-   <children>
-      <ImageView fitHeight="400.0" fitWidth="350.0">
-         <image>
-            <Image url="@../assets/high_scores.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" layoutX="35.0" layoutY="25.0" prefHeight="30.0" prefWidth="280.0" text="Fastest Mine Sweepers">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="difficultyLabel" alignment="CENTER" layoutX="35.0" layoutY="49.0" prefHeight="30.0" prefWidth="280.0" text="for Beginner Difficulty:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel1" layoutX="44.0" layoutY="107.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel1" layoutX="184.0" layoutY="107.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="107.0" prefHeight="22.0" prefWidth="22.0" text="1.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="129.0" prefHeight="22.0" prefWidth="22.0" text="2.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="151.0" prefHeight="22.0" prefWidth="22.0" text="3.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="173.0" prefHeight="22.0" prefWidth="22.0" text="4.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="195.0" prefHeight="22.0" prefWidth="22.0" text="5.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="217.0" prefHeight="22.0" prefWidth="22.0" text="6.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="239.0" prefHeight="22.0" prefWidth="22.0" text="7.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="261.0" prefHeight="22.0" prefWidth="22.0" text="8.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="283.0" prefHeight="22.0" prefWidth="22.0" text="9.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="305.0" prefHeight="22.0" prefWidth="22.0" text="10.">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel2" layoutX="44.0" layoutY="129.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel2" layoutX="184.0" layoutY="129.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel3" layoutX="44.0" layoutY="151.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel3" layoutX="184.0" layoutY="151.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel4" layoutX="44.0" layoutY="173.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel4" layoutX="184.0" layoutY="173.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel5" layoutX="44.0" layoutY="195.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel5" layoutX="184.0" layoutY="195.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel6" layoutX="44.0" layoutY="217.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel6" layoutX="184.0" layoutY="217.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel7" layoutX="44.0" layoutY="239.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel7" layoutX="184.0" layoutY="239.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel8" layoutX="44.0" layoutY="261.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel8" layoutX="184.0" layoutY="261.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel9" layoutX="44.0" layoutY="283.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel9" layoutX="184.0" layoutY="283.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel10" layoutX="44.0" layoutY="305.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLabel10" layoutX="184.0" layoutY="305.0" prefHeight="22.0" prefWidth="142.0">
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </Label>
-      <Button layoutX="67.0" layoutY="345.0" mnemonicParsing="false" onAction="#resetScores" text="Reset Scores" />
-      <Button layoutX="199.0" layoutY="345.0" mnemonicParsing="false" onAction="#exit" text="OK" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="student.minesweeper.HighScoresController">
+   <ImageView fitHeight="400.0" fitWidth="350.0">
+      <Image url="@../assets/high_scores.png"/>
+   </ImageView>
+   <Label alignment="CENTER" layoutX="35.0" layoutY="25.0" prefHeight="30.0" prefWidth="280.0"
+          text="Fastest Mine Sweepers">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="difficultyLabel" alignment="CENTER" layoutX="35.0" layoutY="49.0" prefHeight="30.0" prefWidth="280.0"
+          text="for Beginner Difficulty:">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel1" layoutX="44.0" layoutY="107.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel1" layoutX="184.0" layoutY="107.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="107.0" prefHeight="22.0" prefWidth="22.0" text="1.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="129.0" prefHeight="22.0" prefWidth="22.0" text="2.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="151.0" prefHeight="22.0" prefWidth="22.0" text="3.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="173.0" prefHeight="22.0" prefWidth="22.0" text="4.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="195.0" prefHeight="22.0" prefWidth="22.0" text="5.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="217.0" prefHeight="22.0" prefWidth="22.0" text="6.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="239.0" prefHeight="22.0" prefWidth="22.0" text="7.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="261.0" prefHeight="22.0" prefWidth="22.0" text="8.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="283.0" prefHeight="22.0" prefWidth="22.0" text="9.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="14.0" layoutY="305.0" prefHeight="22.0" prefWidth="22.0" text="10.">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel2" layoutX="44.0" layoutY="129.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel2" layoutX="184.0" layoutY="129.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel3" layoutX="44.0" layoutY="151.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel3" layoutX="184.0" layoutY="151.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel4" layoutX="44.0" layoutY="173.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel4" layoutX="184.0" layoutY="173.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel5" layoutX="44.0" layoutY="195.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel5" layoutX="184.0" layoutY="195.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel6" layoutX="44.0" layoutY="217.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel6" layoutX="184.0" layoutY="217.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel7" layoutX="44.0" layoutY="239.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel7" layoutX="184.0" layoutY="239.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel8" layoutX="44.0" layoutY="261.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel8" layoutX="184.0" layoutY="261.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel9" layoutX="44.0" layoutY="283.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel9" layoutX="184.0" layoutY="283.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="timeLabel10" layoutX="44.0" layoutY="305.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Label fx:id="nameLabel10" layoutX="184.0" layoutY="305.0" prefHeight="22.0" prefWidth="142.0">
+      <font>
+         <Font name="Consolas" size="12.0"/>
+      </font>
+   </Label>
+   <Button layoutX="92.0" layoutY="345.0" mnemonicParsing="false" onAction="#resetScores" text="Reset Scores"/>
+   <Button layoutX="222.0" layoutY="345.0" mnemonicParsing="false" onAction="#exit" text="OK"/>
 </AnchorPane>

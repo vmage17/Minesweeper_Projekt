@@ -1,4 +1,4 @@
-package com.student.minesweeper;
+package student.minesweeper;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,8 +35,8 @@ public class SceneController implements Initializable{
     public static final int INTERMEDIATE_HEIGHT = 16;
     public static final int INTERMEDIATE_WIDTH = 16;
     public static final int INTERMEDIATE_BOMBS = 40;
-    public static final int EXPERT_HEIGHT = 16;
-    public static final int EXPERT_WIDTH = 30;
+    public static final int EXPERT_HEIGHT = 30;
+    public static final int EXPERT_WIDTH = 16;
     public static final int EXPERT_BOMBS = 99;
 
     public static Stage stage = new Stage();
@@ -46,7 +45,6 @@ public class SceneController implements Initializable{
     private static Grid grid;
 
     private static String difficulty = "beginner";
-    private static String highScores = "beginner";
 
     private long startTime = 0;
     private Timeline timeline;
@@ -65,28 +63,21 @@ public class SceneController implements Initializable{
     @FXML
     public Label timeElapsed;
 
-    public SceneController() {
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Initialized with " + difficulty);
-        //if (grid == null) System.out.println("grid is null");
-        //scene = new Scene(root);
-        //stage.setScene(scene);
-        //stage.show();
 
         switch (difficulty) {
             case "beginner" -> {
-                grid = new Grid(BEGINNER_HEIGHT, BEGINNER_WIDTH, BEGINNER_BOMBS);
+                grid = new Grid(BEGINNER_WIDTH, BEGINNER_HEIGHT, BEGINNER_BOMBS);
                 bombsLeft.setText("0" + BEGINNER_BOMBS);
             }
             case "intermediate" -> {
-                grid = new Grid(INTERMEDIATE_HEIGHT, INTERMEDIATE_WIDTH, INTERMEDIATE_BOMBS);
+                grid = new Grid(INTERMEDIATE_WIDTH, INTERMEDIATE_HEIGHT, INTERMEDIATE_BOMBS);
                 bombsLeft.setText("0" + INTERMEDIATE_BOMBS);
             }
             case "expert" -> {
-                grid = new Grid(EXPERT_HEIGHT, EXPERT_WIDTH, EXPERT_BOMBS);
+                grid = new Grid(EXPERT_WIDTH, EXPERT_HEIGHT, EXPERT_BOMBS);
                 bombsLeft.setText("0" + EXPERT_BOMBS);
             }
         }
@@ -97,7 +88,6 @@ public class SceneController implements Initializable{
     @FXML
     public void onClick() throws IOException {
         System.out.println("Smile clicked");
-        //stage = (Stage)smileImageView.getScene().getWindow();
         setScene();
     }
 
@@ -142,8 +132,6 @@ public class SceneController implements Initializable{
     public void setScene() throws IOException {
         System.out.println("Scene set");
         root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/fxml_files/" + difficulty + ".fxml"))));
-        //MenuItem menuItem = (MenuItem)event.getTarget();
-        //stage = (Stage)menuItem.getParentPopup().getOwnerWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -167,11 +155,12 @@ public class SceneController implements Initializable{
         HighScoresController.setDifficulty(difficulty);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_files/high_scores.fxml"));
         Parent rootHighScores = fxmlLoader.load();
-        Stage stageHighScores = new Stage();
-        HighScoresController.stage = stageHighScores;
-        stageHighScores.setScene(new Scene(rootHighScores));
-        stageHighScores.setResizable(false);
-        stageHighScores.show();
+        HighScoresController.stage = new Stage();
+        HighScoresController.stage.setTitle("Minesweeper");
+        HighScoresController.stage.getIcons().add(new Image("file:src/main/resources/assets/bomb.jpg"));
+        HighScoresController.stage.setScene(new Scene(rootHighScores));
+        HighScoresController.stage.setResizable(false);
+        HighScoresController.stage.show();
     }
 
     @FXML
@@ -205,9 +194,6 @@ public class SceneController implements Initializable{
             Integer colIndex = GridPane.getColumnIndex(clickedNode);
             Integer rowIndex = GridPane.getRowIndex(clickedNode);
 
-            //System.out.println("Mouse clicked cell: (" + colIndex + ", " + rowIndex + ")");
-            //System.out.println("Time elapsed: " + getTime());
-
             if (event.getButton() == MouseButton.PRIMARY) {
                 if (startTime == 0)
                     setTimer();
@@ -228,22 +214,20 @@ public class SceneController implements Initializable{
     }
 
     private void winSequence() throws IOException, SQLException {
-        // set score depending on time
         int score = stopTimer();
-        // check if it's a new high score
         if (dataBaseController.checkIfNewHighScore(difficulty, ((float) score)/1000))
-            // create new window for player to input name and then add that name to the database
             showSaveScoreWindow();
     }
 
     private void showSaveScoreWindow() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_files/save_score_" + difficulty + ".fxml"));
         Parent rootSaveScore = fxmlLoader.load();
-        Stage stageSaveScore = new Stage();
-        ScoreController.stage = stageSaveScore;
-        stageSaveScore.setScene(new Scene(rootSaveScore));
-        stageSaveScore.setResizable(false);
-        stageSaveScore.show();
+        ScoreController.stage = new Stage();
+        ScoreController.stage.setTitle("Minesweeper");
+        ScoreController.stage.getIcons().add(new Image("file:src/main/resources/assets/bomb.jpg"));
+        ScoreController.stage.setScene(new Scene(rootSaveScore));
+        ScoreController.stage.setResizable(false);
+        ScoreController.stage.show();
     }
 
     public void setTimer() {
@@ -263,11 +247,6 @@ public class SceneController implements Initializable{
         if (time < 1000)
             return Integer.toString(time);
         return "999";
-    }
-
-    public int getTime() {
-        long endTime = System.currentTimeMillis();
-        return (int)(endTime-startTime);
     }
 
     public int stopTimer() {

@@ -1,4 +1,4 @@
-package com.student.minesweeper;
+package student.minesweeper;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +16,6 @@ public class MinesweeperApp extends Application {
     public void start(Stage stage) throws IOException, SQLException {
 
         DataBaseController dataBaseController = new DataBaseController();
-
-        //dataBaseController.resetScores("beginner");
-        //dataBaseController.resetScores("intermediate");
-        //dataBaseController.resetScores("expert");
 
         SceneController.dataBaseController = dataBaseController;
         HighScoresController.dataBaseController = dataBaseController;

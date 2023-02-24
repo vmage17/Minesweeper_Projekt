@@ -1,4 +1,4 @@
-package com.student.minesweeper;
+package student.minesweeper;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -145,8 +145,6 @@ public class Grid {
     public void gameWon() {
         this.gameWon = true;
         flagAll();
-
-        // adding new record to the database
     }
 
     public boolean checkIfWon() {

@@ -1,4 +1,4 @@
-package com.student.minesweeper;
+package student.minesweeper;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Tile extends StackPane {
 
-    public static final int TILE_SIZE = 32;
     private final int x;
     private final int y;
     private final boolean hasBomb;
@@ -27,19 +26,11 @@ public class Tile extends StackPane {
         this.hasBomb = hasBomb;
         this.grid = grid;
         number = 0;
-
-        //getChildren().add(number); //root?
-
-        //setTranslateX(x * TILE_SIZE);
-        //setTranslateY(y * TILE_SIZE);
-
-        ///setOnMouseClicked(e -> open());
     }
 
     public void flag(GridPane gridPane, Label bombsLeft, boolean won) {
 
         if (isOpen) {
-            System.out.println("Already opened!");
             return;
         }
 
@@ -85,11 +76,8 @@ public class Tile extends StackPane {
 
     public int open(GridPane gridPane) {
         ImageView imageView = getChildByRowColumn(gridPane);
-        //System.out.println(imageView.getImage().getUrl());
-
 
         if (isOpen || flagged) {
-            //System.out.println("Already opened!");
             return 0;
         }
 
@@ -100,7 +88,6 @@ public class Tile extends StackPane {
             return -1;
         }
 
-        //System.out.println("Opening this tile...");
         info();
 
         isOpen = true;
@@ -149,7 +136,6 @@ public class Tile extends StackPane {
                     && GridPane.getColumnIndex(iv) != null
                     && GridPane.getRowIndex(iv) == y
                     && GridPane.getColumnIndex(iv) == x) {
-                //System.out.println("node (" + x + ", " + y + ") exist");
                 return iv;
             }
         }

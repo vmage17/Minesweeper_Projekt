@@ -5,6 +5,6 @@ module com.student.minesweeper.minesweeper {
     requires sqlite.jdbc;
 
 
-    opens com.student.minesweeper to javafx.fxml;
-    exports com.student.minesweeper;
+    opens student.minesweeper to javafx.fxml;
+    exports student.minesweeper;
 }

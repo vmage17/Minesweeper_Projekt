@@ -1,4 +1,4 @@
-package com.student.minesweeper;
+package student.minesweeper;
 
 import javafx.scene.control.Label;
 
@@ -37,7 +37,7 @@ public class DataBaseController {
         setIDs();
     }
 
-    public void createTables() throws SQLException {
+    public void createTables() {
         String createBeginnerTable =
                 "CREATE TABLE IF NOT EXISTS `Beginner` ("
                         + "`ID` integer PRIMARY KEY,"
